@@ -3,6 +3,7 @@ Rubiks-Cube
 
 Rubik's Cube Project for Computer Graphics
 
+
 MARIST College Computer Graphics
 Fall 2013 CMSC446:MSCS555
 Team Project I: Rubik's Cube Visualizer

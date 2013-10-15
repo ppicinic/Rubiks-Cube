@@ -28,13 +28,13 @@ give your scene added depth.
 Of course, coding style, modularity, and other best practices also factor into the project grade.
 Grading
 A breakdown of the individual components of the application and their weights is given below.
- Modeling & Materials 20%
- Transformations & Animation 20%
- Camera & Viewing 10%
- Lights & Shading 20%
- User Interaction 10%
- Read/Process Rubik Solution 10%
- Overall Design & Quality 10%
+ Modeling & Materials 20%
+ Transformations & Animation 20%
+ Camera & Viewing 10%
+ Lights & Shading 20%
+ User Interaction 10%
+ Read/Process Rubik Solution 10%
+ Overall Design & Quality 10%
 MARIST College Computer Graphics
 Fall 2013 CMSC446:MSCS555
 Data Representation

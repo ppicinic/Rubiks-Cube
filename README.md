@@ -3,7 +3,6 @@ Rubiks-Cube
 
 Rubik's Cube Project for Computer Graphics
 
-
 MARIST College Computer Graphics
 Fall 2013 CMSC446:MSCS555
 Team Project I: Rubik's Cube Visualizer
@@ -36,7 +35,7 @@ A breakdown of the individual components of the application and their weights is
  User Interaction 10%
  Read/Process Rubik Solution 10%
  Overall Design & Quality 10%
-MARIST College Computer Graphics
+ MARIST College Computer Graphics
 Fall 2013 CMSC446:MSCS555
 Data Representation
 The initial state of the Cube is given by a text string of the following form (where the specific

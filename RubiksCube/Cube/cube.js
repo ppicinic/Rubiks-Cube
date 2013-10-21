@@ -159,7 +159,7 @@ Cube.prototype.orbit = function(angle, axis){
     var avec = [0, 0, 0];
 
     if (axis === undefined) axis = Y_AXIS;
-    avec[axis] = .5;
+    avec[axis] = 1;
 
     this.transform = mult(rotate(angle, avec), this.transform);
 }

@@ -41,6 +41,8 @@ function initGL()
 	//modelview = lookAt([0, 0, 100], [1, 1,0 ], [0,0,0]);
 	animated = false;
 	rot = 0;
+	
+		
 
     // set up an event handler for this button
 	

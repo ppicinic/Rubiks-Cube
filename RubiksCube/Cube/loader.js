@@ -45,5 +45,8 @@ window.onload = function() {
 	
 	
 
+	
+	
+
     renderScene(); // begin render loop
 }

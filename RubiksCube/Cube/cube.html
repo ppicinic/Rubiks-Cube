@@ -42,19 +42,44 @@
   <script id="vertex-shader" type="x-shader/x-vertex">
 attribute vec4 vPosition; // vert attribs bound to array buffer data 
 attribute vec4 vColor; // vert attribs bound to array buffer data
+attribute vec4 vNormal;
 
 varying vec4 color; // sent down to later stages of the pipeline
 
 uniform mat4 projection; // projection matrix passed from the app
 uniform mat4 modeltransform; // per-object transform passed from the app
 
+uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+uniform vec4 lightPosition;
+uniform float shininess;
+
 void main() 
 {
-    color = vColor; // pass vertex color through unchanged
+
+	vec3 pos = (modeltransform * vPosition).xyz;
+	vec3 light = lightPosition.xyz;
+	vec3 L = normalize(light -pos);
+	
+	vec3 E = normalize(-pos);
+	vec3 H = normalize(L+E);
+	vec3 N = normalize((modeltransform*vNormal).xyz);
+	vec4 ambient = ambientProduct;
+	float Kd = max( dot(L,H), 0.0); //N instead of H?
+	vec4 diffuse = Kd*diffuseProduct;
+	float Ks = pow( max(dot(N,H),0.0), shininess);
+	vec4 specular = Ks * specularProduct;
+	
+	if( dot(L, N) < 0.0 ) {
+	specular = vec4(0.5, 0.5, 0.5, 0.5);
+    } 
+	
+    //color = vColor; // pass vertex color through unchanged
 
     // some per-object matrix ops now done at app level
     // but final matrix chain is processed here
     gl_Position = projection * modeltransform * vPosition;
+	color = ambient + diffuse +specular + vColor;
+    color.a = 1.0; 
 }
   </script>
 

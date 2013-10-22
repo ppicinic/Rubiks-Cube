@@ -21,6 +21,7 @@ Cube.prototype.init = function(program, fcolors)
     this.transform = mat4(); // initialize object transform as identity matrix
 	this.animate = false;
 	this.rot = 0;
+	this.rotAxis = 0;
 
     this.mkcube(fcolors); // delegate to auxiliary function
 
@@ -54,12 +55,12 @@ Cube.prototype.draw = function(){
 	if(this.animate) {
 		
 		if(this.rot < 0) {
-			this.orbit(-1, 1);
-			this.rot += 1;
+			this.orbit(-3, this.rotAxis);
+			this.rot += 3;
 		}
 		else if(this.rot > 0) {
-			this.orbit(1, 1);
-			this.rot -= 1;
+			this.orbit(3, this.rotAxis);
+			this.rot -= 3;
 		}
 		else {
 			this.animate = false;
@@ -124,10 +125,11 @@ Cube.prototype.mkquad = function(a, b, c, d, color)
 /*
 	Sets a cube up to be animated
 */
-Cube.prototype.rotCube = function(rotAngle) {
+Cube.prototype.rotCube = function(axis, rotAngle) {
 	if(this.animate == false) {
 		this.rot = rotAngle;
 		this.animate = true;
+		this.rotAxis = axis;
 	}
 }
 
@@ -162,4 +164,8 @@ Cube.prototype.orbit = function(angle, axis){
     avec[axis] = 1;
 
     this.transform = mult(rotate(angle, avec), this.transform);
+}
+
+Cube.prototype.isRotating = function() {
+	return this.animate;
 }

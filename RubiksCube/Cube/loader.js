@@ -11,7 +11,23 @@ window.onload = function() {
 	var f = document.getElementById("Btn_TR");
     f.addEventListener("click",
         function(){
-			rubiksCube.rotate();
+			rubiksCube.rotate(0, 0);
+        },
+        false
+    );
+	
+	var g = document.getElementById("Btn_TL");
+    g.addEventListener("click",
+        function(){
+			rubiksCube.rotate(1, 0);
+        },
+        false
+    );
+	
+	var h = document.getElementById("Btn_Z");
+    h.addEventListener("click",
+        function(){
+			rubiksCube.shuffle();
         },
         false
     );
@@ -26,6 +42,7 @@ window.onload = function() {
     );*/
 	
 	drawables.push(rubiksCube);
+	
 	
 
     renderScene(); // begin render loop

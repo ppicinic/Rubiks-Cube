@@ -1,0 +1,5 @@
+/*
+	TODO
+	Use this file for all constants and then include it 
+	with the other javascript files
+*/

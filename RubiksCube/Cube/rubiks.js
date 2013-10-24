@@ -169,6 +169,179 @@ Rubiks.prototype.reset = function()
 	}
 }
 
+Rubiks.prototype.convertColor = function(str) {
+	if(str == 'G'){
+		return GREEN;
+	}
+	if(str == 'O'){
+		return ORANGE;
+	}
+	if(str == 'R'){
+		return RED;
+	}
+	if(str == 'B'){
+		return BLUE;
+	}
+	if(str == 'Y'){
+		return YELLOW;
+	}
+	if(str == 'W'){
+		return WHITE;
+	}
+	
+}
+
+Rubiks.prototype.getColor = function(pr, x, y, z, string) {
+	if(pr == 0){
+		if(x == 0){
+			if(y == 0){
+				if(z == 0){
+					return this.convertColor(string[11]);
+				}
+				if(z == 1){
+					return this.convertColor(string[10]);
+				}
+				if(z == 2){
+					return this.convertColor(string[9]);
+				}
+			}
+			if(y == 1){
+				if(z == 0){
+					return this.convertColor(string[20]);
+				}
+				if(z == 1){
+					return this.convertColor(string[19]);
+				}
+				if(z == 2){
+					return this.convertColor(string[18]);
+				}
+			}
+			if(y == 2){
+				if(z == 0){
+					return this.convertColor(string[29]);
+				}
+				if(z == 1){
+					return this.convertColor(string[28]);
+				}
+				if(z == 2){
+					return this.convertColor(string[27]);
+				}
+			}
+		}
+		if(x == 1){
+			if(y == 0){
+				if(z == 0){
+					
+				}
+				if(z == 1){
+				}
+				if(z == 2){
+				}
+			}
+			if(y == 1){
+				if(z == 0){
+				}
+				if(z == 1){
+				}
+				if(z == 2){
+				}
+			}
+			if(y == 2){
+				if(z == 0){
+				}
+				if(z == 1){
+				}
+				if(z == 2){
+				}
+			}
+		}
+		if(x == 2){
+			if(y == 0){
+				if(z == 0){
+				}
+				if(z == 1){
+				}
+				if(z == 2){
+				}
+			}
+			if(y == 1){
+				if(z == 0){
+				}
+				if(z == 1){
+				}
+				if(z == 2){
+				}
+			}
+			if(y == 2){
+				if(z == 0){
+				}
+				if(z == 1){
+				}
+				if(z == 2){
+				}
+			}
+		}
+	}
+}
+
+Rubiks.prototype.state = function(string) {
+	// Re-populate array with all the cubes 
+	for(var x = 0; x < 3; x++) {
+		for(var y = 0; y < 3; y++) {
+			for(var z = 0; z < 3; z++) {
+				var TOP = BLACK;
+				var BOT = BLACK;
+				var LEFT = BLACK;
+				var RIGHT = BLACK;
+				var FRONT = BLACK;
+				var BACK = BLACK;
+				var temp = BLACK;
+				if( x == 0){
+					LEFT = this.getColor(x, y, z, string);
+					//LEFT = GREEN;
+				}
+				if( x == 2){
+					RIGHT = BLUE;
+				}
+				if( y == 0){
+					TOP = WHITE;
+				}
+				if( y == 2){
+					BOT = YELLOW;
+				}
+				if( z == 0){
+					FRONT = RED;
+				}
+				if( z == 2){
+					BACK = ORANGE;
+				}
+				
+				var cube = new Cube(shaders, [TOP, BOT, LEFT, RIGHT, BACK, FRONT]);
+				
+				if( x == 0){
+					cube.move(-1.01, 0);
+				}
+				if( x == 2){
+					cube.move(1.01, 0);
+				}
+				if( y == 0){
+					cube.move(1.01, 1);
+				}
+				if( y == 2){
+					cube.move(-1.01, 1);
+				}
+				if( z == 0){
+					cube.move(1.01, 2);
+				}
+				if( z == 2){
+					cube.move(-1.01, 2);
+				}
+				this.cubeArray[x][y][z] = cube;
+			}
+		}
+	}
+}
+
 Rubiks.prototype.rotate = function(axis, face) {
 	var isAnimate = false;
 	for(var x = 0; x < 3; x++) {

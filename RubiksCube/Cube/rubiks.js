@@ -31,7 +31,6 @@ Rubiks.prototype.init = function(program)
 		}
 	}
 	
-	this.isShuffle = false;
 	this.isSolving = false;
 	this.solveStack = new Array();
 	
@@ -655,10 +654,6 @@ Rubiks.prototype.rotate = function(axis, face) {
 	}
 }
 
-Rubiks.prototype.shuffle = function() {
-	this.isShuffle = true;
-}
-
 Rubiks.prototype.solveDraw = function() {
 	if(!this.isAnimating()){
 		var solveMove = this.solveStack.shift();
@@ -673,7 +668,6 @@ Rubiks.prototype.solve = function(solveString) {
 	this.isSolving = true;
 	for(var i = 0; i < solveString.length; i = i + 2){
 		var faceString = solveString[i];
-		//alert(faceString);
 		var faceAxis = 0;
 		var faceNum = 0;
 		if(this.topface == faceString){
@@ -701,12 +695,9 @@ Rubiks.prototype.solve = function(solveString) {
 			faceNum = 2;
 		}
 		var turnNum = parseInt(solveString[i + 1]);
-		//alert(faceAxis);
-		//alert(faceNum);
-		//alert(turnNum);
+
 		for(var j = 0; j < turnNum; j++){
 			this.solveStack.push([faceAxis, faceNum]);
-			//alert(this.solveStack);
 		}
 		
 	}

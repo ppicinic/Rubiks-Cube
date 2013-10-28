@@ -12,13 +12,9 @@ window.onload = function() {
 	
 	var rubiksCube = new Rubiks(shaders);
 	var stateString = "GGWRRGRRGOWWGGOYYROGOYYYRBRYYYRBGRWWBOYBOBBOBOGOWWBWWB";
-	//var stateString = "WWWWWWWWWGGGRRRBBBGGGRRRBBBGGGRRRBBBYYYYYYYYYOOOOOOOOO";
-	//var stateString = "RRRWWWOYOWOBYRYGRYGGBYRYGBBWOWGGYGGGOORYYROORBBWWOWBBB";
-	//rubiksCube.rotate(0, 0);
-	//rubiksCube.reset(shaders);
+	
 	rubiksCube.state(stateString);
 	rubiksCube.solve("O1W1R1Y3");
-	//rubiksCube.rotate(2, 2);
 	
 	var f = document.getElementById("Btn_TR");
     f.addEventListener("click",
@@ -43,19 +39,8 @@ window.onload = function() {
         },
         false
     );
-
-    // set up an event handler for this button
-    /*var b = document.getElementById("Btn_TL");
-    b.addEventListener("click",
-        function(){
-				cubeMid.rotCube(-90);
-        },
-        false
-    );*/
 	
 	drawables.push(rubiksCube);
-	
-	
 
     renderScene(); // begin render loop
 }

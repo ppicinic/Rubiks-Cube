@@ -41,6 +41,8 @@ function initGL()
 	//modelview = lookAt([0, 0, 100], [1, 1,0 ], [0,0,0]);
 	animated = false;
 	rot = 0;
+	
+		
 
     // set up an event handler for this button
 	
@@ -57,7 +59,7 @@ function initGL()
     d.addEventListener("click",
         function(){
 			projection = perspective(30, 1.33, .1, 100);
-			projection = mult(projection, lookAt([1, 5, 9], [.3, 0, 0], [1.5, 10, 1]));
+			projection = mult(projection, lookAt([-5, 5, -9], [.3, 0, 0], [1.5, 10, 1]));
 		},
         false
     );

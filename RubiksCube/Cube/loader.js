@@ -1,4 +1,8 @@
 /* Set up event callback to start the application */
+function sleep(milliSeconds){
+	var startTime = new Date().getTime(); // get the current time
+	while (new Date().getTime() < startTime + milliSeconds); // hog cpu
+}
 window.onload = function() {
     initGL(); // basic WebGL setup for the scene 
 
@@ -7,6 +11,14 @@ window.onload = function() {
 	
 	
 	var rubiksCube = new Rubiks(shaders);
+	var stateString = "GGWRRGRRGOWWGGOYYROGOYYYRBRYYYRBGRWWBOYBOBBOBOGOWWBWWB";
+	//var stateString = "WWWWWWWWWGGGRRRBBBGGGRRRBBBGGGRRRBBBYYYYYYYYYOOOOOOOOO";
+	//var stateString = "RRRWWWOYOWOBYRYGRYGGBYRYGBBWOWGGYGGGOORYYROORBBWWOWBBB";
+	//rubiksCube.rotate(0, 0);
+	//rubiksCube.reset(shaders);
+	rubiksCube.state(stateString);
+	rubiksCube.solve("O1W1R1Y3");
+	//rubiksCube.rotate(2, 2);
 	
 	var f = document.getElementById("Btn_TR");
     f.addEventListener("click",

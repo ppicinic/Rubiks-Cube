@@ -49,25 +49,6 @@ Cube.prototype.draw = function(){
     var xformId = gl.getUniformLocation(this.program, "modeltransform");
     gl.uniformMatrix4fv(xformId, false, flatten(this.transform));
 	
-	 var lightPosition = vec4(10.0, 10.0, 10.0, 0.0 );
-    var lightAmbient = vec4(0.2, 0.2, 0.2, 10 );
-    var lightDiffuse = vec4( 0.1, 0.1, 0.1, 0.1 );
-    var lightSpecular = vec4( 1.0, 1.0, 1.0, 1.0 );
-
-    var materialAmbient = vec4( 1.0, 1.0, 1.0, 1.0 );
-    var materialDiffuse = vec4( 0.5, 0.5, 0.5, 0.5 );
-    var materialSpecular = vec4( 2.0, 2.0, 2.0, 2.0 );
-    var materialShininess = 5.0;
-    
-    var ambientProduct = mult(lightAmbient, materialAmbient);
-    var diffuseProduct = mult(lightDiffuse, materialDiffuse);
-    var specularProduct = mult(lightSpecular, materialSpecular);
-
-    gl.uniform4fv( gl.getUniformLocation(this.program, "ambientProduct"),flatten(ambientProduct ));
-    gl.uniform4fv( gl.getUniformLocation(this.program, "diffuseProduct"), flatten(diffuseProduct) );
-    gl.uniform4fv( gl.getUniformLocation(this.program, "specularProduct"),flatten(specularProduct));	
-    gl.uniform4fv( gl.getUniformLocation(this.program, "lightPosition"), flatten(lightPosition ));
-    gl.uniform1f( gl.getUniformLocation(this.program, "shininess"),materialShininess );
 	
 	
 	/*
@@ -100,10 +81,32 @@ Cube.prototype.draw = function(){
     gl.vertexAttribPointer( vPosId, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosId );
 	
-	
+	gl.bindBuffer( gl.ARRAY_BUFFER, this.vBufferId ); // set active array buffer
 	var vNormal = gl.getAttribLocation( this.program, "vNormal" );
     gl.vertexAttribPointer( vNormal, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vNormal );
+	
+	
+	var lightPosition = vec4(10.0, 10.0, 10.0, 1.0 );
+    var lightAmbient = vec4(0.0, 0.1, 0.1, 1.0 );
+    var lightDiffuse = vec4( 1.0, 1.0, 1.0, 1.0 );
+    var lightSpecular = vec4( 1.0, 1.0, 1.0, 1.0 );
+
+    var materialAmbient = vec4( 1.0, 1.0, 1.0, 1.0 );
+    var materialDiffuse = vec4( 0.0, 0.5, 0.5, 1.0 );
+    var materialSpecular = vec4( 1.0, 1.0, 1.0, 0.0 );
+    var materialShininess = 100.0;
+    
+        
+    var ambientProduct = mult(lightAmbient, materialAmbient);
+    var diffuseProduct = mult(lightDiffuse, materialDiffuse);
+    var specularProduct = mult(lightSpecular, materialSpecular);
+
+   gl.uniform4fv( gl.getUniformLocation(this.program, "ambientProduct"),flatten(ambientProduct ));
+    gl.uniform4fv( gl.getUniformLocation(this.program, "diffuseProduct"), flatten(diffuseProduct) );
+    gl.uniform4fv( gl.getUniformLocation(this.program, "specularProduct"),flatten(specularProduct));	
+    gl.uniform4fv( gl.getUniformLocation(this.program, "lightPosition"), flatten(lightPosition ));
+    gl.uniform1f( gl.getUniformLocation(this.program, "shininess"),materialShininess );
 
 
     // now push buffer data through the pipeline to render this object

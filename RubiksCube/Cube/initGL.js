@@ -6,12 +6,6 @@ var canvas; // global to hold reference to an HTML5 canvas
 var gl; // global to hold reference to our WebGL context+
 var quit; //global variable to hold quit boolean
 
-// a few simple constants
-const X_AXIS = 0;
-const Y_AXIS = 1;
-const Z_AXIS = 2;
-
-
 var drawables = []; // used to store any objects that need to be drawn
 
 /* Initialize global WebGL stuff - not object specific */
@@ -31,13 +25,7 @@ function initGL()
 
     // set the projection matrix
     projection = ortho(-4, 4, -3.0, 3.0, -100, 100);
-	projection = mult(projection, lookAt([.33, -.2, 0.5], [.2, -.15, .25], [0.1, 0.1, 0.1]));
-	
-	// set up a quit variable
-	quit = false;
-		
-
-    
+	projection = mult(projection, lookAt([.33, -.2, 0.5], [.2, -.15, .25], [0.1, 0.1, 0.1]));    
 }
 
 /* Global render callback - would draw multiple objects if there were more than one */

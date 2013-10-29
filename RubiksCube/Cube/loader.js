@@ -12,30 +12,52 @@ window.onload = function() {
 	
 	var rubiksCube = new Rubiks(shaders);
 	var stateString = "GGWRRGRRGOWWGGOYYROGOYYYRBRYYYRBGRWWBOYBOBBOBOGOWWBWWB";
+	var rubiks = new RubiksIO(rubiksCube);
+	//rubiksCube.state(stateString);
+	//rubiksCube.solve("O1W1R1Y3");
 	
-	rubiksCube.state(stateString);
-	rubiksCube.solve("O1W1R1Y3");
+	// set up an event handler for this button
 	
-	var f = document.getElementById("Btn_TR");
-    f.addEventListener("click",
+	var c = document.getElementById("Btn_Ortho");
+    c.addEventListener("click",
         function(){
-			rubiksCube.rotate(0, 0);
+			projection = ortho(-4, 4, -3.0, 3.0, -100, 100);
+			projection = mult(projection, lookAt([.33, -.2, 0.5], [.2, -.15, .25], [0.1, 0.1, 0.1]));
         },
         false
     );
 	
-	var g = document.getElementById("Btn_TL");
-    g.addEventListener("click",
+	var d = document.getElementById("Btn_Pers");
+    d.addEventListener("click",
         function(){
-			rubiksCube.rotate(1, 0);
-        },
+			projection = perspective(30, 1.33, .1, 100);
+			projection = mult(projection, lookAt([-5, 5, -9], [.3, 0, 0], [1.5, 10, 1]));
+		},
         false
     );
 	
-	var h = document.getElementById("Btn_Z");
+	var h = document.getElementById("Btn_State");
     h.addEventListener("click",
         function(){
-			rubiksCube.shuffle();
+			var state = prompt("Enter Cube State.");
+			rubiks.state(state);
+        },
+        false
+    );
+	
+	var i = document.getElementById("Btn_Solve");
+    i.addEventListener("click",
+        function(){
+			var solution = prompt("Enter the Cube Solution.");
+			rubiks.solve(solution);
+        },
+        false
+    );
+	
+	var j = document.getElementById("Btn_Replay");
+    j.addEventListener("click",
+        function(){
+			rubiks.replay();
         },
         false
     );

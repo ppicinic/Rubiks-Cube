@@ -6,15 +6,20 @@
 *
 */
 
+/* Creates a RubiksIO class that wraps a rubiksCube and makes IO calls */
 var RubiksIO = function (rubiksCube) { this.init(rubiksCube); }
 
 RubiksIO.prototype.init = function(rubiksCube) 
 {
+	// The IO class has a reference to the Rubiks Cube
 	this.rubiks = rubiksCube;
+	
+	// Holds the state and solution for replay
 	this.stateString = "WWWWWWWWWGGGRRRBBBGGGRRRBBBGGGRRRBBBYYYYYYYYYOOOOOOOOO";
 	this.solveString = "";
 }
 
+/* Sets the State of the Rubiks Cube that is wrapped */
 RubiksIO.prototype.state = function(stateString)
 {
 	stateString = stateString.split(' ').join('')
@@ -23,6 +28,7 @@ RubiksIO.prototype.state = function(stateString)
 	this.rubiks.state(this.stateString);
 }
 
+/* Calls the Solution for the Rubiks Cube that is wrapped */
 RubiksIO.prototype.solve = function(solveString)
 {
 	solveString = solveString.split(' ').join('');
@@ -31,6 +37,7 @@ RubiksIO.prototype.solve = function(solveString)
 	this.rubiks.solve(this.solveString);
 }
 
+/* Replays the State and Solution of the Rubiks Cube that is wrapped */
 RubiksIO.prototype.replay = function()
 {
 	if(this.stateString.length > 0){

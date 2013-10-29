@@ -5,11 +5,14 @@
 	Calls proper rotations and tracks cube positions
 */
 
+// Constructor for the Rubiks class
 var Rubiks = function (program) { this.init(program); }
 
 Rubiks.prototype.init = function(program) 
 {
+	// saves the shader program for reference
 	this.shaders = program;
+	
 	// Create an 3 dimensional array to store the cubes
 	this.cubeArray = new Array(3);
 	for(var x = 0; x < 3; x++) {
@@ -19,10 +22,12 @@ Rubiks.prototype.init = function(program)
 		}
 	}
 	
+	// knows if the cube is animating a solution
 	this.isSolving = false;
-	this.solveStack = new Array();
+	// keeps hold of a solution rotations to make
+	this.solveQueue = new Array();
 	
-	
+	// Knows which color is at which face
 	this.frontface = "R";
 	this.backface = "O";
 	this.leftface = "G";
@@ -108,6 +113,7 @@ Rubiks.prototype.draw = function()
 /* Recreates all the cubes setting the rubiks cube to the initial position */
 Rubiks.prototype.reset = function()
 {
+	// Resets the Middle Cube Location
 	this.frontface = "R";
 	this.backface = "O";
 	this.leftface = "G";
@@ -170,6 +176,7 @@ Rubiks.prototype.reset = function()
 	}
 }
 
+/* Gets the color based on a character */
 Rubiks.prototype.convertColor = function(str) {
 	if(str == 'G'){
 		return GREEN;
@@ -192,6 +199,7 @@ Rubiks.prototype.convertColor = function(str) {
 	
 }
 
+/* gets the color for the face specified */
 Rubiks.prototype.getColor = function(pr, x, y, z, string) {
 	if(pr == 0){
 		if(x == 0){
@@ -413,13 +421,17 @@ Rubiks.prototype.getColor = function(pr, x, y, z, string) {
 	}
 }
 
+/* Sets the state of the cube based on string of the cube state */
 Rubiks.prototype.state = function(string) {
+
+	// Sets the location of the middle squares
 	this.frontface = string[22];
 	this.backface = string[49];
 	this.leftface = string[19];
 	this.rightface = string[25];
 	this.topface = string[4];
 	this.botface = string[40];
+	
 	// Re-populate array with all the cubes 
 	for(var x = 0; x < 3; x++) {
 		for(var y = 0; y < 3; y++) {
@@ -476,6 +488,9 @@ Rubiks.prototype.state = function(string) {
 		}
 	}
 }
+
+/* Tells if the rubiks cube as a whole is rotating
+   This checks every cube if it is rotating */
 Rubiks.prototype.isAnimating = function() {
 	var isAnimate = false;
 	for(var x = 0; x < 3; x++) {
@@ -489,18 +504,11 @@ Rubiks.prototype.isAnimating = function() {
 	}
 	return isAnimate;
 }
+
+/* Rotates a face of the Rubiks Cube */
 Rubiks.prototype.rotate = function(axis, face) {
-	var isAnimate = false;
-	for(var x = 0; x < 3; x++) {
-		for(var y = 0; y < 3; y++) {
-			for(var z = 0; z < 3; z++) {
-				if(this.cubeArray[x][y][z].isRotating()){
-					isAnimate = true;
-				}
-			}
-		}
-	}
-	if(!isAnimate) {
+	if(!this.isAnimating()) {
+	
 		// visual rotation of cubes
 		for(var x = 0; x < 3; x++) {
 			for(var y = 0; y < 3; y++) {
@@ -533,6 +541,9 @@ Rubiks.prototype.rotate = function(axis, face) {
 				}
 			}
 		}
+		
+		// Physical rotation of the cubes in their array locations
+		// This prevents improper cubes from rotating on sequential rotations
 		var faceArray = new Array(3);
 		for(x = 0; x < 3; x++){
 			faceArray[x] = new Array(3);
@@ -642,16 +653,18 @@ Rubiks.prototype.rotate = function(axis, face) {
 	}
 }
 
+/* Plays the next rotation in the solution */
 Rubiks.prototype.solveDraw = function() {
 	if(!this.isAnimating()){
-		var solveMove = this.solveStack.shift();
+		var solveMove = this.solveQueue.shift();
 		this.rotate(solveMove[0], solveMove[1]);
-		if(this.solveStack.length == 0){
+		if(this.solveQueue.length == 0){
 			this.isSolving = false;
 		}
 	}
 }
 
+/* Takes the Solution and puts the rotation in the solution queue to be called on */
 Rubiks.prototype.solve = function(solveString) {
 	this.isSolving = true;
 	for(var i = 0; i < solveString.length; i = i + 2){
@@ -685,7 +698,7 @@ Rubiks.prototype.solve = function(solveString) {
 		var turnNum = parseInt(solveString[i + 1]);
 
 		for(var j = 0; j < turnNum; j++){
-			this.solveStack.push([faceAxis, faceNum]);
+			this.solveQueue.push([faceAxis, faceNum]);
 		}
 		
 	}

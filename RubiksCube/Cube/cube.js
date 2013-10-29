@@ -19,9 +19,9 @@ Cube.prototype.init = function(program, fcolors)
     this.points = []; // this array will hold raw vertex positions
     this.colors = []; // this array will hold per-vertex color data
     this.transform = mat4(); // initialize object transform as identity matrix
-	this.animate = false;
-	this.rot = 0;
-	this.rotAxis = X_AXIS;
+	this.animate = false; // knows whether the cube is rotating
+	this.rot = 0; // knows the angle left to rotate
+	this.rotAxis = X_AXIS; // knows the rotation axis
 
     this.mkcube(fcolors); // delegate to auxiliary function
 
@@ -40,6 +40,7 @@ Cube.prototype.init = function(program, fcolors)
     gl.bufferData( gl.ARRAY_BUFFER, flatten(this.points), gl.STATIC_DRAW );
 }
 
+/* Draws the cube */
 Cube.prototype.draw = function(){
     gl.useProgram( this.program ); // set the current shader programs
 
@@ -196,6 +197,7 @@ Cube.prototype.orbit = function(angle, axis){
     this.transform = mult(rotate(angle, avec), this.transform);
 }
 
+/* Checks if this cube is currently rotating */
 Cube.prototype.isRotating = function() {
 	return this.animate;
 }

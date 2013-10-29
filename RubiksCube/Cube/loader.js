@@ -11,11 +11,6 @@ window.onload = function() {
 	// Create the Rubiks IO and give it the Rubiks Cube
 	var rubiks = new RubiksIO(rubiksCube);
 	
-	// TODO Remove commented out code
-	//var stateString = "GGWRRGRRGOWWGGOYYROGOYYYRBRYYYRBGRWWBOYBOBBOBOGOWWBWWB";
-	//rubiksCube.state(stateString);
-	//rubiksCube.solve("O1W1R1Y3");
-	
 	// Set up an event handlers for all the buttons
 	var a = document.getElementById("Btn_Ortho");
     a.addEventListener("click",

@@ -35,6 +35,55 @@ window.onload = function() {
         false
     );
 	
+		var f = document.getElementById("Btn_TR");
+    f.addEventListener("click",
+        function(){
+			rubiksCube.rotate(X_AXIS,2);
+        },
+        false
+    );
+	
+	var g = document.getElementById("Btn_TL");
+    g.addEventListener("click",
+        function(){
+			rubiksCube.rotate(X_AXIS, 0);
+        },
+        false
+    );
+	
+	var h = document.getElementById("Btn_TB");
+    h.addEventListener("click",
+        function(){
+			rubiksCube.rotate(Y_AXIS, 2);
+        },
+        false
+    );
+	
+	var i = document.getElementById("Btn_TT");
+    i.addEventListener("click",
+        function(){
+			rubiksCube.rotate(Y_AXIS, 0);
+        },
+        false
+    );
+	
+	var j = document.getElementById("Btn_TF");
+    j.addEventListener("click",
+        function(){
+			rubiksCube.rotate(Z_AXIS,0);
+        },
+        false
+    );
+	
+	var k = document.getElementById("Btn_TBB");
+    k.addEventListener("click",
+        function(){
+			rubiksCube.rotate(Z_AXIS,2);
+        },
+        false
+    );
+	
+	
 	var c = document.getElementById("Btn_State");
     c.addEventListener("click",
         function(){

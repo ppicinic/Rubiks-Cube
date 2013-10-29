@@ -121,9 +121,6 @@ Cube.prototype.draw = function(){
     gl.vertexAttribPointer( vPosId, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosId );
 	
-	
-	
-	
 	var vNormal = gl.getAttribLocation( this.program, "vNormal" );
     gl.vertexAttribPointer( vNormal, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vNormal );

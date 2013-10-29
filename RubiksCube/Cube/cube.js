@@ -72,10 +72,10 @@ Cube.prototype.draw = function(){
 
     
 	
-	var lightPosition = vec4(10.0, 10.0, 10.0, -1.0 );
+	var lightPosition = vec4(10.0, 4.0, 10.0, -1.0 );
     var lightAmbient = vec4(-0.0, -0.1, -0.1, -1.0 );
     var lightDiffuse = vec4( -1.0, -1.0, -1.0, -1.0 );
-    var lightSpecular = vec4( -1, -1, -1, -0.0 );
+    var lightSpecular = vec4( -.4, -.35, -.45, -0.0 );
 	
 
     var materialAmbient = vec4( 3.0, 2.0, 4.0,1.0 );

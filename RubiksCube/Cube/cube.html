@@ -9,28 +9,7 @@
   </head>
   <body>
 <!doctype html>
-<!--
-    cube.html - Demonstrates rendering and animation of simple cube objects
 
-    GOAL Display a stack of three cubes, differently colored. The top cube
-        can be rotated left or right in 90-degree increments using the two
-        buttons on the page. Clicking a button should trigger a smooth
-        animation of the top cube rotating to its new orientation; that is,
-        we increment the angle a little each frame until a full 90-degree
-        rotation is completed, at which point the angle no longer increments
-        and the animation stops. Clicking either button while the top cube
-        is currently animating should ideally do nothing; that is, buttons
-        are effectively disabled until animation stops (how you do this is
-        up to you). If you are unable to get the smooth animation working,
-        then at least have the buttons trigger the appropriate 90-degree
-        rotation as a single step. 
-
-    TODO There are various smaller todo items throughout the three source
-        files for this assignment. In addition, as described above, you must
-        decide how to manage the start and stop of each animation sequence.
-        Depending on your approach, this will likely require one or more
-        new functions rather than simply modifying existing functions.
--->
 <html xmlns="http://www.w3.org/1999/hmtl" lang="en">
 <head>
   <title>WebGL Cube using OOP</title>
@@ -50,7 +29,9 @@ uniform mat4 projection; // projection matrix passed from the app
 uniform mat4 modeltransform; // per-object transform passed from the app
 
 uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+uniform vec4 ambientProduct2, diffuseProduct2, specularProduct2;
 uniform vec4 lightPosition;
+uniform vec4 lightPosition2;
 uniform float shininess;
 
 void main() 
@@ -58,11 +39,14 @@ void main()
 
 	vec3 pos = -(modeltransform * vPosition).xyz;
     vec3 light = lightPosition.xyz;
+	vec3 light2 = lightPosition2.xyz;
     vec3 L = normalize( light - pos );
-
+	vec3 L2 = normalize( light2 - pos);
 	
     vec3 E = normalize( -pos );
     vec3 H = normalize( L + E );
+	vec3 H2 = normalize( L2 + E);
+    
 
     // Transform vertex normal into eye coordinates
        
@@ -70,23 +54,28 @@ void main()
 
     // Compute terms in the illumination equation
     vec4 ambient = ambientProduct;
+	vec4 ambient2 = ambientProduct2;
+
 
     float Kd = max( dot(L, N), 0.0 );
+    float Kd2 = max( dot(L2, N), 0.0 );
+
     vec4  diffuse = Kd*diffuseProduct;
+    vec4  diffuse2 = Kd2*diffuseProduct2;
 
     float Ks = pow( max(dot(N, H), 0.0), shininess );
-    vec4  specular = Ks * specularProduct;
+	float Ks2 = pow( max(dot(N, H2), 0.0), shininess );
+    vec4 specular =  Ks * specularProduct;
+	vec4 specular2 = Ks2 * specularProduct2;
     
     if( dot(L, N) < 0.0 ) {
 	specular = vec4(0.0, 0.0, 0.0, 1.0);
     } 
-	
-    //color = vColor; // pass vertex color through unchanged
 
     // some per-object matrix ops now done at app level
     // but final matrix chain is processed here
     gl_Position = projection * modeltransform * vPosition;
-	color = ambient + diffuse +specular + vColor;
+	color = ambient + diffuse +specular + specular2 + diffuse2 + vColor;
     color.a = 1.0; 
 }
   </script>
@@ -108,21 +97,32 @@ main()
   <script type="text/javascript" src="../Common/webgl-utils.js"></script>
   <script type="text/javascript" src="../Common/initShaders.js"></script>
   <script type="text/javascript" src="../Common/MV.js"></script>
+  <script type="text/javascript" src="constants.js"></script>
   <script type="text/javascript" src="initGL.js"></script>
   <script type="text/javascript" src="cube.js"></script>
   <script type="text/javascript" src="rubiks.js"></script>
+  <script type="text/javascript" src="rubiksIO.js"></script>
   <script type="text/javascript" src="loader.js"></script>
 </head>
 <body style="background-color:black;text-align:center;">
     <canvas id="gl-canvas" width="1024" height="768">Oops ...
         your browser doesn't support the HTML5 canvas element</canvas>
     <div>
-        <button id = "Btn_TL">Top Cube: Turn Left </button>
-        <button id = "Btn_TR">Top Cube: Turn Right</button>
-		<button id = "Btn_Z">Rotate Z</button>
+        <button id = "Btn_State">Load State</button>
+        <button id = "Btn_Solve">Load Solution</button>
+		<button id = "Btn_Replay">Replay Solution</button>
 		<br />
 		<button id = "Btn_Ortho">Orthographic </button>
 		<button id = "Btn_Pers">Perspective </button>
+		<br />
+		<button id = "Btn_TF">Turn Front</button>--------
+		<button id = "Btn_TT">Turn Top</button>
+		---------<button id = "Btn_TBB">Turn Back</button>
+		<br / >
+		<button id = "Btn_TL">Turn Left</button>--------
+		<button id = "Btn_TR">Turn Right</button>
+		<br />
+		<button id = "Btn_TB">Turn Bottom</button> 
     </div>
 </body>
 </html>

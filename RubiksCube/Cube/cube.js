@@ -71,8 +71,7 @@ Cube.prototype.draw = function(){
 	}
 
     
-	
-	var lightPosition = vec4(10.0, 4.0, 10.0, -1.0 );
+	var lightPosition = vec4(-30.0, -20.0, -20.0, -1.0 );
     var lightAmbient = vec4(-0.0, -0.1, -0.1, -1.0 );
     var lightDiffuse = vec4( -1.0, -1.0, -1.0, -1.0 );
     var lightSpecular = vec4( -.4, -.35, -.45, -0.0 );
@@ -82,15 +81,15 @@ Cube.prototype.draw = function(){
     var materialDiffuse = vec4( 0.5, 0.55, 0.5, 1.0 );
     var materialSpecular = vec4( 0.5, 1, 2, 0 );
 	
-	var lightPosition2 = vec4(-30.0, -20.0, -20.0, -2.0 );
-	var lightAmbient2 = vec4(1, 1, 0.5, -0.0 );
-	var lightDiffuse2 = vec4( 1, 1, 1.0, -1.0 );
-	var lightSpecular2 = vec4( 1, 1.0, 1.0, 1.0 );
+	var lightPosition2 = vec4(10.0, 11.0, 10.0, 1.0 );
+	var lightAmbient2 = vec4(1, 0, 0.5, -0.0 );
+	var lightDiffuse2 = vec4( 1, 1.0, 1.0, -1.0 );
+	var lightSpecular2 = vec4( 0.4, 0.4, 0.6, 1.0 );
 
-	var materialAmbient2 = vec4( 1.0, 0.0, 0.0, -1.0 );
+	var materialAmbient2 = vec4( 1.0, 0.0, 0.0, 1.0 );
 	var materialDiffuse2 = vec4( .2, .2, .2, 0.0);
-	var materialSpecular2 = vec4( 1, 2, 1, 1.0 );
-    var materialShininess = 200.0;
+	var materialSpecular2 = vec4( 1.2, 1.2, 3, 1.0 );
+    var materialShininess = 50.0;
     
         
     var ambientProduct = mult(lightAmbient, materialAmbient);

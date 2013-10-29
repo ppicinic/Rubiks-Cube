@@ -4,18 +4,6 @@
 	Reduces Complexity of loader file.
 	Calls proper rotations and tracks cube positions
 */
-/* Color Constants
-*  TODO - Possibly move these to the Constants file?
-*/
-
-var BLACK = [0.0, 0.0, 0.0, 1.0];
-var WHITE = [1.0, 1.0, 1.0, 1.0];
-var RED = [1.0, 0.0, 0.0, 1.0];
-var GREEN = [0.1, .75, 0.1, 1.0];
-var BLUE = [0.0, 0.0, 1.0, 1.0];
-var YELLOW = [1.0, 1.0, 0.0, 1.0];
-var RED = [1.0, 0.0, 0.0, 1.0];
-var ORANGE = [1.0, .75, 0.0, 1.0];
 
 var Rubiks = function (program) { this.init(program); }
 
@@ -75,22 +63,22 @@ Rubiks.prototype.init = function(program)
 				var cube = new Cube(program, [FRONT, RIGHT, BOT, TOP, BACK, LEFT]);
 				
 				if( x == 0){
-					cube.move(-1.01, 0);
+					cube.move(-1.01, X_AXIS);
 				}
 				if( x == 2){
-					cube.move(1.01, 0);
+					cube.move(1.01, X_AXIS);
 				}
 				if( y == 0){
-					cube.move(1.01, 1);
+					cube.move(1.01, Y_AXIS);
 				}
 				if( y == 2){
-					cube.move(-1.01, 1);
+					cube.move(-1.01, Y_AXIS);
 				}
 				if( z == 0){
-					cube.move(1.01, 2);
+					cube.move(1.01, Z_AXIS);
 				}
 				if( z == 2){
-					cube.move(-1.01, 2);
+					cube.move(-1.01, Z_AXIS);
 				}
 				this.cubeArray[x][y][z] = cube;
 			}
@@ -466,22 +454,22 @@ Rubiks.prototype.state = function(string) {
 				var cube = new Cube(this.shaders, [FRONT, RIGHT, BOT, TOP, BACK, LEFT]);
 				
 				if( x == 0){
-					cube.move(-1.01, 0);
+					cube.move(-1.01, X_AXIS);
 				}
 				if( x == 2){
-					cube.move(1.01, 0);
+					cube.move(1.01, X_AXIS);
 				}
 				if( y == 0){
-					cube.move(1.01, 1);
+					cube.move(1.01, Y_AXIS);
 				}
 				if( y == 2){
-					cube.move(-1.01, 1);
+					cube.move(-1.01, Y_AXIS);
 				}
 				if( z == 0){
-					cube.move(1.01, 2);
+					cube.move(1.01, Z_AXIS);
 				}
 				if( z == 2){
-					cube.move(-1.01, 2);
+					cube.move(-1.01, Z_AXIS);
 				}
 				this.cubeArray[x][y][z] = cube;
 			}

@@ -4,8 +4,7 @@
 
 var canvas; // global to hold reference to an HTML5 canvas
 var gl; // global to hold reference to our WebGL context+
-var animated;
-var rot;
+var quit; //global variable to hold quit boolean
 
 // a few simple constants
 const X_AXIS = 0;
@@ -27,42 +26,18 @@ function initGL()
 
     gl.viewport( 0, 0, canvas.width, canvas.height ); // use the whole canvas
     gl.clearColor( 0.7, 0.7,0.7, 1.0 ); // background color
+	
     gl.enable(gl.DEPTH_TEST); // required for 3D hidden-surface elimination
 
     // set the projection matrix
-    // note: added rotation just to better see the shapes of our cubes
     projection = ortho(-4, 4, -3.0, 3.0, -100, 100);
 	projection = mult(projection, lookAt([.33, -.2, 0.5], [.2, -.15, .25], [0.1, 0.1, 0.1]));
-	//projection = perspective(30, 1.33, 100, .100);
-	//projection = mult(projection, lookAt([1, 5, 9], [.3, 0, 0], [1.5, 10, 1]));
-	//+projection = perspective(50, 1.33, .1, 10);
-    //projection = mult(projection, rotate(30, [0.5, 1, 0.12]));
-	//projection = mult(projection, lookAt([-100, 100, -100], [0,0,0 ], [0,0,0]) );
-	//modelview = lookAt([0, 0, 100], [1, 1,0 ], [0,0,0]);
-	animated = false;
-	rot = 0;
 	
+	// set up a quit variable
+	quit = false;
 		
 
-    // set up an event handler for this button
-	
-	var c = document.getElementById("Btn_Ortho");
-    c.addEventListener("click",
-        function(){
-			projection = ortho(-4, 4, -3.0, 3.0, -100, 100);
-			projection = mult(projection, lookAt([.33, -.2, 0.5], [.2, -.15, .25], [0.1, 0.1, 0.1]));
-        },
-        false
-    );
-	
-	var d = document.getElementById("Btn_Pers");
-    d.addEventListener("click",
-        function(){
-			projection = perspective(30, 1.33, .1, 100);
-			projection = mult(projection, lookAt([-5, 5, -9], [.3, 0, 0], [1.5, 10, 1]));
-		},
-        false
-    );
+    
 }
 
 /* Global render callback - would draw multiple objects if there were more than one */
@@ -77,5 +52,5 @@ var renderScene = function(){
     }
 
     // queue up this same callback for the next frame
-    requestAnimFrame(renderScene);
+	requestAnimFrame(renderScene);
 }

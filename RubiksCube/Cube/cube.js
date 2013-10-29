@@ -21,7 +21,7 @@ Cube.prototype.init = function(program, fcolors)
     this.transform = mat4(); // initialize object transform as identity matrix
 	this.animate = false;
 	this.rot = 0;
-	this.rotAxis = 0;
+	this.rotAxis = X_AXIS;
 
     this.mkcube(fcolors); // delegate to auxiliary function
 

@@ -69,7 +69,47 @@ Cube.prototype.draw = function(){
 		}
 	}
 
-    gl.bindBuffer( gl.ARRAY_BUFFER, this.cBufferId ); // set active array buffer
+    
+	
+	var lightPosition = vec4(10.0, 10.0, 10.0, -1.0 );
+    var lightAmbient = vec4(-0.0, -0.1, -0.1, -1.0 );
+    var lightDiffuse = vec4( -1.0, -1.0, -1.0, -1.0 );
+    var lightSpecular = vec4( -1, -1, -1, -0.0 );
+	
+
+    var materialAmbient = vec4( 3.0, 2.0, 4.0,1.0 );
+    var materialDiffuse = vec4( 0.5, 0.55, 0.5, 1.0 );
+    var materialSpecular = vec4( 0.5, 1, 2, 0 );
+	
+	var lightPosition2 = vec4(-30.0, -20.0, -20.0, -2.0 );
+	var lightAmbient2 = vec4(1, 1, 0.5, -0.0 );
+	var lightDiffuse2 = vec4( 1, 1, 1.0, -1.0 );
+	var lightSpecular2 = vec4( 1, 1.0, 1.0, 1.0 );
+
+	var materialAmbient2 = vec4( 1.0, 0.0, 0.0, -1.0 );
+	var materialDiffuse2 = vec4( .2, .2, .2, 0.0);
+	var materialSpecular2 = vec4( 1, 2, 1, 1.0 );
+    var materialShininess = 200.0;
+    
+        
+    var ambientProduct = mult(lightAmbient, materialAmbient);
+    var diffuseProduct = mult(lightDiffuse, materialDiffuse);
+    var specularProduct = mult(lightSpecular, materialSpecular);
+	 var ambientProduct2 = mult(lightAmbient2, materialAmbient2);
+    var diffuseProduct2 = mult(lightDiffuse2, materialDiffuse2);
+    var specularProduct2 = mult(lightSpecular2, materialSpecular2);
+
+   gl.uniform4fv( gl.getUniformLocation(this.program, "ambientProduct"),flatten(ambientProduct ));
+    gl.uniform4fv( gl.getUniformLocation(this.program, "diffuseProduct"), flatten(diffuseProduct) );
+    gl.uniform4fv( gl.getUniformLocation(this.program, "specularProduct"),flatten(specularProduct));	
+    gl.uniform4fv( gl.getUniformLocation(this.program, "lightPosition"), flatten(lightPosition));
+    gl.uniform4fv( gl.getUniformLocation(this.program, "ambientProduct2"),flatten(ambientProduct2));
+    gl.uniform4fv( gl.getUniformLocation(this.program, "diffuseProduct2"), flatten(diffuseProduct2) );
+    gl.uniform4fv( gl.getUniformLocation(this.program, "specularProduct2"),flatten(specularProduct2));		
+	gl.uniform4fv( gl.getUniformLocation(this.program, "lightPosition2"), flatten(lightPosition2 ));
+	gl.uniform1f( gl.getUniformLocation(this.program, "shininess"),materialShininess );
+
+	gl.bindBuffer( gl.ARRAY_BUFFER, this.cBufferId ); // set active array buffer
     // map buffer data to the vertex shader attribute
     var vColorId = gl.getAttribLocation( this.program, "vColor" );
     gl.vertexAttribPointer( vColorId, 4, gl.FLOAT, false, 0, 0 );
@@ -81,33 +121,13 @@ Cube.prototype.draw = function(){
     gl.vertexAttribPointer( vPosId, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosId );
 	
-	gl.bindBuffer( gl.ARRAY_BUFFER, this.vBufferId ); // set active array buffer
+	
+	
+	
 	var vNormal = gl.getAttribLocation( this.program, "vNormal" );
     gl.vertexAttribPointer( vNormal, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vNormal );
 	
-	
-	var lightPosition = vec4(10.0, 10.0, 10.0, 1.0 );
-    var lightAmbient = vec4(0.0, 0.1, 0.1, 1.0 );
-    var lightDiffuse = vec4( 1.0, 1.0, 1.0, 1.0 );
-    var lightSpecular = vec4( 1.0, 1.0, 1.0, 1.0 );
-
-    var materialAmbient = vec4( 1.0, 1.0, 1.0, 1.0 );
-    var materialDiffuse = vec4( 0.0, 0.5, 0.5, 1.0 );
-    var materialSpecular = vec4( 1.0, 1.0, 1.0, 0.0 );
-    var materialShininess = 100.0;
-    
-        
-    var ambientProduct = mult(lightAmbient, materialAmbient);
-    var diffuseProduct = mult(lightDiffuse, materialDiffuse);
-    var specularProduct = mult(lightSpecular, materialSpecular);
-
-   gl.uniform4fv( gl.getUniformLocation(this.program, "ambientProduct"),flatten(ambientProduct ));
-    gl.uniform4fv( gl.getUniformLocation(this.program, "diffuseProduct"), flatten(diffuseProduct) );
-    gl.uniform4fv( gl.getUniformLocation(this.program, "specularProduct"),flatten(specularProduct));	
-    gl.uniform4fv( gl.getUniformLocation(this.program, "lightPosition"), flatten(lightPosition ));
-    gl.uniform1f( gl.getUniformLocation(this.program, "shininess"),materialShininess );
-
 
     // now push buffer data through the pipeline to render this object
     gl.drawArrays( gl.TRIANGLES, 0, this.numverts() );

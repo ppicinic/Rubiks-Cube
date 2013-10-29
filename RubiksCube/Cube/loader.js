@@ -14,7 +14,7 @@ window.onload = function() {
 	var stateString = "GGWRRGRRGOWWGGOYYROGOYYYRBRYYYRBGRWWBOYBOBBOBOGOWWBWWB";
 	
 	rubiksCube.state(stateString);
-	rubiksCube.solve("O1W1R1Y3");
+	//rubiksCube.solve("O1W1R1Y3");
 	
 	var f = document.getElementById("Btn_TR");
     f.addEventListener("click",
